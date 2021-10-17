@@ -35,9 +35,14 @@ function imgpkg_copy() {
     src=$2
     dst=$3
     echo ""
-    echo "imgpkg copy $flags $src --to-tar $dst.tar"
+    echo "RETRY=1"
+    echo "while ! imgpkg copy $flags $src --to-tar $dst.tar"
+    echo "do"
+    echo "  RETRY=\$((RETRY + 1))"
+    echo "done"
 }
 
+echo "#!/bin/bash"
 echo "set -euo pipefail"
 echodual "Note that yq must be version above or equal to version 4.9.2 and below version 5."
 
